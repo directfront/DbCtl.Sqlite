@@ -1,0 +1,23 @@
+os: linux
+dist: bionic
+language: csharp
+dotnet: 3.1.404
+
+install:
+  - dotnet restore src/DbCtl.Sqlite.sln
+
+script:
+  - dotnet test src/DbCtl.Sqlite.Tests/DbCtl.Sqlite.Tests.csproj
+  - dotnet build -c Release src/DbCtl.Sqlite.sln
+
+before_deploy:
+  - dotnet tool install --global dotnet-zip
+  - dotnet zip install
+  - dotnet publish src\DbCtl.Sqlite\DbCtl.Sqlite.csproj -p:PublishProfile=FolderProfile
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: dotnet zip -c Release
+  on:
+    branch: main
