@@ -1,0 +1,23 @@
+name: DbCtl Sqlite - Release
+
+on:
+  workflow_run:
+    workflows: ["DbCtl Sqlite - CI"]
+    branches: [ main ]
+    types:
+      - completed
+
+jobs:
+  publish-nuget:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core 3.1
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.x'
+    - name: Install dependencies
+      run: dotnet restore src/DbCtl.Sqlite.sln
+    - name: Build
+      run: dotnet build --configuration Release --no-restore src/DbCtl.Sqlite.sln
