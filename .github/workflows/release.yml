@@ -1,0 +1,29 @@
+name: DbCtl Connectors - Release
+
+on:
+  workflow_run:
+    workflows: ["DbCtl Connectors - CI"]
+    branches: [ main ]
+    types:
+      - completed
+
+jobs:
+  publish-nuget:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET 5
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.100
+    - name: Install dependencies
+      run: dotnet restore src/DbCtl.Connectors.sln
+    - name: Build
+      run: dotnet build --configuration Release --no-restore src/DbCtl.Connectors.sln
+    - uses: nuget/setup-nuget@v1
+      with:
+        nuget-api-key: ${{ secrets.NUGETAPIKEY }}
+        nuget-version: '5.x'
+    - run: nuget pack -OutputFileNamesWithoutVersion ./src/DbCtl.Connectors.nuspec
+    - run: nuget push ./DbCtl.Connectors.nupkg -source https://api.nuget.org/v3/index.json

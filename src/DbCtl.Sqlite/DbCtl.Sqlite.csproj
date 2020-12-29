@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<Product>DbCtl</Product>
+		<Authors>Sydney du Plooy</Authors>
+		<Company>Direct Front Systems (Pty) Ltd.</Company>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageProjectUrl>https://github.com/directfront/DbCtl.Sqlite</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/directfront/DbCtl.Sqlite</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageIcon></PackageIcon>
+		<Copyright>Copyright 2020 Direct Front Systems (Pty) Ltd.</Copyright>
+		<Description>SQLite connector implementation for use with DbCtl.</Description>
+		<PackageReleaseNotes>1.0.0 Initial release</PackageReleaseNotes>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Dapper" Version="2.0.78" />
+		<PackageReference Include="DbCtl.Connectors" Version="4.0.0" />
+		<PackageReference Include="Microsoft.Data.Sqlite.Core" Version="5.0.1" />
+		<PackageReference Include="SQLitePCLRaw.bundle_winsqlite3" Version="2.0.4" />
+		<PackageReference Include="System.ComponentModel.Composition" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\LICENSE">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,24 @@
+name: DbCtl Sqlite - CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET 5
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.100
+    - name: Install dependencies
+      run: dotnet restore src/DbCtl.Sqlite.sln
+    - name: Build
+      run: dotnet build --configuration Release --no-restore src/DbCtl.Sqlite.sln
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal src/DbCtl.Sqlite.sln
