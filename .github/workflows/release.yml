@@ -1,8 +1,8 @@
-name: DbCtl Connectors - Release
+name: DbCtl Sqlite - Release
 
 on:
   workflow_run:
-    workflows: ["DbCtl Connectors - CI"]
+    workflows: ["DbCtl Sqlite - CI"]
     branches: [ main ]
     types:
       - completed
@@ -18,12 +18,6 @@ jobs:
       with:
         dotnet-version: 5.0.100
     - name: Install dependencies
-      run: dotnet restore src/DbCtl.Connectors.sln
+      run: dotnet restore src/DbCtl.Sqlite.sln
     - name: Build
-      run: dotnet build --configuration Release --no-restore src/DbCtl.Connectors.sln
-    - uses: nuget/setup-nuget@v1
-      with:
-        nuget-api-key: ${{ secrets.NUGETAPIKEY }}
-        nuget-version: '5.x'
-    - run: nuget pack -OutputFileNamesWithoutVersion ./src/DbCtl.Connectors.nuspec
-    - run: nuget push ./DbCtl.Connectors.nupkg -source https://api.nuget.org/v3/index.json
+      run: dotnet build --configuration Release --no-restore src/DbCtl.Sqlite.sln
