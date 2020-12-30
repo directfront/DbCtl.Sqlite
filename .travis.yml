@@ -20,6 +20,6 @@ deploy:
   provider: releases
   token: $GITHUB_API_KEY
   file: DbCtl.Sqlite-$TRAVIS_TAG.zip
-  cleanup: true
+  skip_cleanup: true
   on:
     branch: main
