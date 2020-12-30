@@ -23,4 +23,3 @@ deploy:
   cleanup: true
   on:
     branch: main
-    tags: true
