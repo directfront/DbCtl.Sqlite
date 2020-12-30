@@ -11,11 +11,16 @@ script:
   - dotnet build -c Release src/DbCtl.Sqlite.sln
 
 before_deploy:
+  - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+  - git tag $TRAVIS_TAG
   - dotnet publish -c Release src/DbCtl.Sqlite/DbCtl.Sqlite.csproj -p:PublishProfile=FolderProfile
-
+  - zip -r DbCtl.Sqlite-$TRAVIS_TAG.zip src/DbCtl.Sqlite/bin/Release/netstandard2.1/publish/
+  
 deploy:
-  skip_cleanup: true
-  provider: script
-  script: zip -r DbCtl.Sqlite.zip src/DbCtl.Sqlite/bin/Release/netstandard2.1/publish/
+  provider: releases
+  token: $GITHUB_API_KEY
+  file: DbCtl.Sqlite-$TRAVIS_TAG.zip
+  cleanup: true
   on:
     branch: main
+    tags: true
