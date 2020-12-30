@@ -11,7 +11,7 @@ script:
   - dotnet build -c Release src/DbCtl.Sqlite.sln
 
 before_deploy:
-  - dotnet publish src\DbCtl.Sqlite\DbCtl.Sqlite.csproj -p:PublishProfile=FolderProfile
+  - dotnet publish src/DbCtl.Sqlite/DbCtl.Sqlite.csproj -p:PublishProfile=FolderProfile
 
 deploy:
   skip_cleanup: true
